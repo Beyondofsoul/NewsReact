@@ -31,3 +31,15 @@ export const getCategories = async () => {
     console.log(err);
   }
 };
+export const getLatestNews = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}latest-news`, {
+      params: {
+        apiKey: API_KEY,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
