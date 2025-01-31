@@ -2,11 +2,12 @@ import { PAGE_SIZE, TOTAL_PAGES } from '../../constants/constants';
 import styles from './styles.module.css';
 import NewsList from '../NewsList/NewsList';
 import NewsFilters from '../NewsFilters/NewsFilters';
-import useFilters from '../../helpers/hooks/useFilters';
-import { useDebounce } from '../../helpers/hooks/useDeboune';
-import { useFetch } from '../../helpers/hooks/useFetch';
-import { getNews } from '../../api/apiNews';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
+import { useFetch } from '../../helpers/hooks/useFetch';
+import { useDebounce } from '../../helpers/hooks/useDeboune';
+import useFilters from '../../helpers/hooks/useFilters';
+import { NewsApiResponse, ParamsType } from '../../interfaces';
+import { getNews } from '../../api/apiNews';
 
 function NewsByFilters() {
   const { filters, changeFilter } = useFilters({
@@ -18,7 +19,7 @@ function NewsByFilters() {
 
   const debouncedKeywords = useDebounce(filters.keywords, 1500);
 
-  const { data, isLoading } = useFetch(getNews, {
+  const { data, isLoading } = useFetch<NewsApiResponse, ParamsType>(getNews, {
     ...filters,
     keywords: debouncedKeywords,
   });
@@ -33,7 +34,7 @@ function NewsByFilters() {
       changeFilter('page_number', filters.page_number - 1);
     }
   };
-  const handlePageClick = (pageNumber) => {
+  const handlePageClick = (pageNumber: number) => {
     changeFilter('page_number', pageNumber);
   };
 
