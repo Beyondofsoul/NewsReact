@@ -1,8 +1,13 @@
 import { formatTimeAgo } from '../../helpers/formatTimeAgo';
+import { INews } from '../../interfaces';
 
 import styles from './styles.module.css';
 
-function NewsItem({ item }) {
+interface Props {
+  item: INews;
+}
+
+function NewsItem({ item }: Props) {
   return (
     <li className={styles.item}>
       <div className={styles.wrapper} style={{ backgroundImage: `url(${item.image})` }}></div>
