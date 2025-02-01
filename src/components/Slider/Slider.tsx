@@ -4,9 +4,10 @@ import styles from './styles.module.css';
 interface Props {
   children: React.ReactElement;
   step?: number;
+  isDark: boolean;
 }
 
-function Slider({ children, step = 150 }: Props) {
+function Slider({ children, step = 150, isDark }: Props) {
   const sliderRef = useRef<HTMLElement | null>(null);
 
   const scrollLeft = () => {
@@ -19,7 +20,7 @@ function Slider({ children, step = 150 }: Props) {
   };
 
   return (
-    <div className={styles.slider}>
+    <div className={`${styles.slider} ${isDark ? styles.dark : styles.light}`}>
       <button onClick={scrollLeft} className={styles.arrow}>
         {'<'}
       </button>
