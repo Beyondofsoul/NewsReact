@@ -1,15 +1,22 @@
 import { formatTimeAgo } from '@/shared/helpers/formatTimeAgo';
 import { INews } from '../../model/types';
 import styles from './styles.module.css';
+import Image from '@/shared/ui/Image/Image';
 
 interface Props {
   item: INews;
+  type: 'banner' | 'item';
 }
 
-function NewsItem({ item }: Props) {
+function NewsCard({ item, type = 'item' }: Props) {
   return (
-    <li className={styles.item}>
-      <div className={styles.wrapper} style={{ backgroundImage: `url(${item.image})` }}></div>
+    <li className={`${styles.card} ${type === 'banner' && styles.banner}`}>
+      {type === 'banner' ? (
+        <Image image={item.image} />
+      ) : (
+        <div className={styles.wrapper} style={{ backgroundImage: `url(${item.image})` }}></div>
+      )}
+
       <div className={styles.info}>
         <h3 className={styles.title}>{item.title}</h3>
         <p className={styles.extra}>
@@ -20,4 +27,4 @@ function NewsItem({ item }: Props) {
   );
 }
 
-export default NewsItem;
+export default NewsCard;
